@@ -9,8 +9,17 @@ indent_style = space
 [*.{cs,csx}]
 indent_size = 4
 csharp_style_namespace_declarations = file_scoped:warning
-dotnet_style_require_accessibility_modifiers = always:warning
 dotnet_sort_system_directives_first = true
+
+# Interface member không cần accessibility modifier.
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+
+# Scaffold dùng log message template thường; chuyển sang LoggerMessage khi cần tối ưu hiệu năng.
+dotnet_diagnostic.CA1848.severity = none
+
+[tests/**/*.cs]
+# Tên test dùng snake_case tiếng Việt cho dễ đọc.
+dotnet_diagnostic.CA1707.severity = none
 
 [*.{json,yml,yaml,xml,csproj,props}]
 indent_size = 2

@@ -101,7 +101,9 @@ Các class trong `Api/Placeholders/` chỉ để chạy thử (lưu trong bộ n
    read timeout riêng.
 5. **Watermark dịch sớm.** `PollingEventSource` chỉ dịch watermark sau khi toàn bộ sự kiện đã ghi
    bền vững; gặp lỗi thì giữ mốc cũ để lần sau lấy lại.
-6. **Hàng đợi không giới hạn.** Dùng bounded channel + `DropWrite` + metric overflow thay vì để OOM.
+6. **Hàng đợi không giới hạn.** Dùng bounded channel + `FullMode.Wait` + `TryWrite` + metric
+   overflow thay vì để OOM. Cố tình không dùng `DropWrite`: khi đó `TryWrite` luôn trả `true`
+   và item bị bỏ âm thầm, mất luôn tín hiệu overflow.
 7. **Body webhook không giới hạn.** Chặn theo `MaxBodyBytes` trước khi buffer.
 
 ## Metrics

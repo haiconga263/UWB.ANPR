@@ -20,11 +20,13 @@ public static class IngestionServiceCollectionExtensions
         services.TryAddSingleton<IngestMetrics>();
         services.TryAddSingleton<IRecognitionProcessor, NoOpRecognitionProcessor>();
 
-        // Bounded channel chặn tràn bộ nhớ khi burst. DropWrite để tầng tiếp nhận không bị block;
-        // sự kiện bị bỏ khỏi hàng đợi vẫn an toàn vì đã ghi bền vững trước đó.
+        // Bounded channel chặn tràn bộ nhớ khi burst.
+        // FullMode.Wait kết hợp TryWrite: TryWrite trả false ngay khi đầy nên phát hiện được
+        // overflow mà vẫn không block tầng tiếp nhận. Không dùng DropWrite vì khi đó TryWrite
+        // luôn trả true và item bị bỏ âm thầm, mất luôn tín hiệu overflow.
         var channel = Channel.CreateBounded<QueuedEvent>(new BoundedChannelOptions(queueCapacity)
         {
-            FullMode = BoundedChannelFullMode.DropWrite,
+            FullMode = BoundedChannelFullMode.Wait,
             SingleReader = false,
             SingleWriter = false,
         });
