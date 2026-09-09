@@ -63,7 +63,7 @@ public sealed class EventIngestPipelineTests
         store.TryPersistAsync(Arg.Any<RawCameraEvent>(), Arg.Any<CancellationToken>())
             .Returns(Task.FromResult(PersistResult.Stored));
 
-        // capacity 1 + DropWrite: ghi lần thứ hai sẽ bị loại khỏi hàng đợi.
+        // capacity 1 + FullMode.Wait: hàng đợi đã đầy nên TryWrite trả false.
         var (pipeline, _) = Build(store, capacity: 1, fillQueue: true);
 
         var outcome = await pipeline.IngestAsync(AnyEvent(), CancellationToken.None);
@@ -78,7 +78,7 @@ public sealed class EventIngestPipelineTests
     {
         var channel = Channel.CreateBounded<QueuedEvent>(new BoundedChannelOptions(capacity)
         {
-            FullMode = BoundedChannelFullMode.DropWrite,
+            FullMode = BoundedChannelFullMode.Wait,
         });
 
         if (fillQueue)
