@@ -6,6 +6,8 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
     <PackageReference Include="Polly.Core" Version="8.4.2" />
+    <!-- AddConcurrencyLimiter nằm ở package riêng, không có trong Polly.Core -->
+    <PackageReference Include="Polly.RateLimiting" Version="8.4.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UWB.ANPR.Abstractions\UWB.ANPR.Abstractions.csproj" />
