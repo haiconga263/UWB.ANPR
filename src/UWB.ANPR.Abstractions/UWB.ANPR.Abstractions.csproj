@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>UWB.ANPR.Abstractions</RootNamespace>
+  </PropertyGroup>
+</Project>

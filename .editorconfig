@@ -1,0 +1,16 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+indent_style = space
+
+[*.{cs,csx}]
+indent_size = 4
+csharp_style_namespace_declarations = file_scoped:warning
+dotnet_style_require_accessibility_modifiers = always:warning
+dotnet_sort_system_directives_first = true
+
+[*.{json,yml,yaml,xml,csproj,props}]
+indent_size = 2

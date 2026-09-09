@@ -1,0 +1,15 @@
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+.vs/
+.vscode/
+.idea/
+TestResults/
+*.trx
+artifacts/
+appsettings.Development.json
+appsettings.Local.json
+*.received.*
